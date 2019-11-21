@@ -12,14 +12,41 @@ body {
     0 2px 4px rgba(0, 0, 0, 0.24);
   padding: 1rem;
   cursor: pointer;
-  position: relative;
+  /* position: relative; */
   margin: 1rem auto;
+
+  display: flex;
+  justify-content: space-between;
 }
 
-.movie-director {
+.movie-card--details {
+  max-width: 80%;
+}
+
+.movie-card--details a {
+  color: #17a2b8;
+  text-decoration: none;
+  transition: all 0.25s;
+}
+
+.movie-card--details a:hover {
+  color: #0056b3;
+}
+
+.movie-card--controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.movie-card--controls > * {
+  margin: 4px 0;
+}
+
+/* .movie-director {
   padding: 4px 0;
   font-size: 0.8rem;
-}
+} */
 
 .saved-list {
   background-color: #fff;
@@ -30,7 +57,7 @@ body {
   cursor: pointer;
   position: relative;
   margin: 1rem auto;
-  width: 75%;
+  /* width: 75%; */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -48,12 +75,13 @@ body {
   border: 1px solid grey;
   padding: 5px;
 }
-.save-wrapper {
+
+/* .save-wrapper {
   position: relative;
   width: 75%;
   margin: 1rem auto;
-}
-.save-button {
+} */
+/* .save-button {
   position: absolute;
   top: 25px;
   right: 25px;
@@ -64,10 +92,23 @@ body {
 .save-button:hover {
   background-color: green;
   color: white;
+} */
+
+/* .home-button {
+  padding: 5px 10px;
+} */
+
+.nav-links {
+  margin-right: 1rem;
+  padding: 0.5rem;
 }
 
-.home-button {
-  padding: 5px 10px;
+.nav-links:hover,
+.nav-links:active {
+  text-decoration: none;
+}
+
+.active {
   background-color: lightskyblue;
 }
 
@@ -75,3 +116,12 @@ body {
   color: red;
   text-align: center;
 }
+
+/* .not-found {
+  height: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: lightsalmon;
+} */

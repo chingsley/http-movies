@@ -22,8 +22,9 @@ export default class SavedList extends Component {
             </NavLink>
           );
         })}
-        <div className="home-button">
-          <Link to="/">Home</Link>
+        <div className="navs">
+          <NavLink exact className="nav-links" to="/">Home</NavLink>{' '}
+          <NavLink exact className="nav-links" to="/add-movie">Add Movie</NavLink>
         </div>
       </div>
     );

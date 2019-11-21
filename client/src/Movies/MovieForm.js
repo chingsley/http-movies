@@ -1,4 +1,6 @@
 import React from 'react';
+import axios from 'axios';
+import { Alert } from 'reactstrap';
 
 import { Container, Row, Col, Button, Form, FormGroup, Input, FormFeedback } from 'reactstrap';
 
@@ -6,69 +8,115 @@ const initialFormState = {
   title: '',
   director: '',
   metascore: '',
-  stars: [],
+  stars: [''],
 };
 
 class MovieForm extends React.Component {
   state = {
-    form: initialFormState,
-    inputStars: {
-      '0': '',
+    form: { ...initialFormState },
+    Movie: false,
+  };
+
+  componentDidMount() {
+    const { id } = this.props.match.params;
+    if (id) {
+      const movieToEdit = JSON.parse(localStorage.getItem('movies'))
+                                .find(movie => `${movie.id}` === `${id}`);
+      this.setState({ editMode: true, form: movieToEdit });
     }
+  }
+
+  addNewMovie = form => {
+    axios
+      .post('http://localhost:5000/api/movies', form)
+      .then(res => {
+        console.log('initialFormState = ', initialFormState);
+        this.setState({ form: { ...initialFormState, stars: [''] } })
+        this.props.history.push('/');
+      })
+      .catch(err => console.log(err));
+  };
+
+
+  updateMovie = form => {
+    axios
+      .put(`http://localhost:5000/api/movies/${form.id}`, form)
+      .then(res => {
+        console.log('initialFormState = ', initialFormState);
+        this.setState({ form: { ...initialFormState, stars: [''] } })
+        this.props.history.push('/');
+      })
+      .catch(err => console.log(err));
   };
 
   handleSubmit = e => {
     e.preventDefault();
+    // console.log(this.state);
+    const { form } = this.state;
+    form.stars = form.stars.filter(name => name !== '');
+    console.log(form);
+    if (this.state.editMode) {
+      this.updateMovie(form);
+    } else {
+      this.addNewMovie(form)
+    }
 
-    console.log(this.state);
+
+
   };
 
   addStar = e => {
     e.preventDefault();
-    console.log(this.state);
 
-    this.setState(prevState => {
-      const lastInputKey = Object.keys(prevState.inputStars).pop();
-      const newInputKey = `${Number(lastInputKey) +  1}`;
-
-      return {
-        inputStars: {
-          ...prevState.inputStars,
-          [newInputKey]: '',
+    this.setState(prevState =>({
+        form: {
+          ...prevState.form,
+          stars: [...prevState.form.stars, '']
         }
-      }
-    });
+    }));
   }
 
   changeHandler = e => {
+    e.persist();
+
     const fieldName = e.target.name;
     let fieldValue = e.target.value;
-    console.log(fieldName, fieldValue);
+    const { attributes: { index } } = e.target;
+    const fieldIndex = index && index.value;
 
     this.setState(prevState => {
-      const {form, inputStars } = prevState;
+      const { form } = prevState;
       if (fieldName === 'metascore') {
         fieldValue = parseInt(fieldValue, 10);
       }
 
-      if (!Number.isNaN(Number(fieldName))) {
-        inputStars[fieldName] = fieldValue;
+      if (fieldName === 'stars') {
+        form.stars[fieldIndex] = fieldValue;
       } else {
         form[fieldName] = fieldValue;
       }
 
-      return ({
-        form: form,
-        inputStars: inputStars
-      });
+      return ({ form });
     });
   };
 
   render() {
+
+    if(this.state.editMode && !this.state.form) {
+      return (
+        <Container>
+          <Row>
+            <Col>
+              <Alert color="danger">Movie not found</Alert>
+            </Col>
+          </Row>
+        </Container>
+      );
+    }
     return (
-      <Container>
-        <Row className="form-container-row">
-          <Col className="form-container">
+      // <Container>
+        // <Row className="form-container-row">
+          // <Col className="form-container">
             <Form className="movie-form" onSubmit={this.handleSubmit}>
               <FormGroup row>
                 <Col sm={7}>
@@ -109,15 +157,17 @@ class MovieForm extends React.Component {
                   />
                 </Col>
               </FormGroup>
-              {Object.keys(this.state.inputStars).map(key => (
-                <FormGroup key={key} row>
+              {this.state.form.stars.map((star, index) => (
+                <FormGroup key={index} row>
                   <Col sm={10}>
                     <Input
                       type="text"
-                      name={key}
-                      id="stars"
+                      name="stars"
+                      index={index}
+                      className="stars"
+                      id={`star-${index}`}
                       placeholder="Star name"
-                      value={this.state.inputStars[key]}
+                      value={star}
                       onChange={this.changeHandler}
                     />
                   </Col>
@@ -136,9 +186,9 @@ class MovieForm extends React.Component {
                 </Col>
               </FormGroup>
             </Form>
-          </Col>
-        </Row>
-      </Container>
+          // </Col>
+        // </Row>
+      // </Container>
     );
   }
 }

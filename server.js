@@ -24,7 +24,7 @@ let movies = [
   },
   {
     id: 2,
-    title: "The Lord of the Rings: The Fellowship of the Ring",
+    title: "The Lord of the Rings: The Fellowship of the RingThe Lord of the Rings: The Fellowship of the Ring",
     director: "Peter Jackson",
     metascore: 92,
     stars: ["Elijah Wood", "Ian McKellen", "Orlando Bloom"]

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
+import 'font-awesome/css/font-awesome.min.css'
 import App from './App'
 import { BrowserRouter as Router } from 'react-router-dom';
 
