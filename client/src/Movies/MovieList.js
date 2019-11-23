@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import MovieCard from "./MovieCard";
 
 
@@ -8,7 +7,7 @@ export default class MovieList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      movies: []
+      movies: [],
     };
   }
 
@@ -28,7 +27,7 @@ export default class MovieList extends Component {
       .delete(`http://localhost:5000/api/movies/${movieID}`)
       .then(res => {
         console.log(res);
-        this.setState(prevState => ({ movies: prevState.movies.filter(movie => `${movie.id}` != `${res.data}`) }));
+        this.setState(prevState => ({ movies: prevState.movies.filter(movie => `${movie.id}` !== `${res.data}`) }));
       })
       .catch(err => console.log(err));
   };
@@ -38,12 +37,15 @@ export default class MovieList extends Component {
     return (
       <div className="movie-list">
         {this.state.movies.map(movie => (
-          <MovieCard
-            key={movie.id}
-            movie={movie}
-            deleteMovie={this.deleteMovie}
-            addToSavedList={this.props.addToSavedList}
-          />
+          <div key={movie.id}>
+            <MovieCard
+              key={movie.id}
+              movie={movie}
+              deleteMovie={this.deleteMovie}
+              addToSavedList={this.props.addToSavedList}
+              toggleDeleteModal={this.toggleDeleteModal}
+            />
+          </div>
         ))}
       </div>
     );

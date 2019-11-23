@@ -112,10 +112,10 @@ body {
   background-color: lightskyblue;
 }
 
-.movie-warning {
+/* .movie-warning {
   color: red;
   text-align: center;
-}
+} */
 
 /* .not-found {
   height: 5rem;
@@ -124,4 +124,9 @@ body {
   align-items: center;
   justify-content: center;
   color: lightsalmon;
+} */
+
+/* 
+.del-mod-bg {
+  color: red;
 } */
