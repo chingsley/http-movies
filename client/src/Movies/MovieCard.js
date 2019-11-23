@@ -14,14 +14,18 @@ class MovieCard extends React.Component {
     this.setState(prevState => ({ deleteModalOpen: !prevState.deleteModalOpen }))
   };
 
-  // handleDelete = () => {
-  //   this.props.deleteMovie(this.props.movie.id);
-  // };
-
-
   saveMovie = () => {
     const addToSavedList = this.props.addToSavedList;
     addToSavedList(this.props.movie);
+  };
+
+  unsaveMovie = () => {
+    this.props.removeFromSavedList(this.props.movie);
+  };
+
+  movieIsSaved = () => {
+    const { savedList, movie } = this.props;
+    return !!savedList.find(savedMovie => savedMovie.id === movie.id)
   };
 
   render() {
@@ -52,10 +56,20 @@ class MovieCard extends React.Component {
           />
         </div>
         <div className="movie-card--controls">
-          <Button color="info" onClick={this.saveMovie} >
-            <i className="fa fa-save"></i>{' '}
-            Save
-          </Button>{' '}
+          {
+            this.movieIsSaved() ? (
+              <Button color="info" onClick={this.unsaveMovie} >
+                <i className="fa fa-save"></i>{' '}
+                Unsave
+              </Button>
+            ) : (
+             <Button color="info" onClick={this.saveMovie} >
+                <i className="fa fa-save"></i>{' '}
+                Save
+              </Button>
+            )
+          }
+    
           <Link className="btn btn-secondary" to={`/update-movie/${id}`}>
             <i className="fa fa-edit"></i>{' '}
             Edit

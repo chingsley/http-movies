@@ -53,6 +53,8 @@ export default class Movie extends React.Component {
           deleteMovie={this.deleteMovie}
           // saveMovie={this.saveMovie}
           addToSavedList={this.props.addToSavedList}
+          removeFromSavedList={this.props.removeFromSavedList}
+          savedList={this.props.savedList}
         />
         {/* <div className="save-button" onClick={this.saveMovie}>
           Save
