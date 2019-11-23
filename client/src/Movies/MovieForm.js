@@ -114,81 +114,77 @@ class MovieForm extends React.Component {
       );
     }
     return (
-      // <Container>
-        // <Row className="form-container-row">
-          // <Col className="form-container">
-            <Form className="movie-form" onSubmit={this.handleSubmit}>
-              <FormGroup row>
-                <Col sm={7}>
-                  <Input
-                    type="text"
-                    name="title"
-                    id="title"
-                    placeholder="Movie title"
-                    value={this.state.form.title}
-                    onChange={this.changeHandler}
-                    valid={this.state.form.title.length > 1}
-                    invalid={this.state.form.title !== '' && this.state.form.title.length <= 1}
-                  />
-                </Col>
-                <Col sm={3}>
-                  <Input
-                    type="number"
-                    name="metascore"
-                    id="metascore"
-                    placeholder="metascore"
-                    value={this.state.form.metascore}
-                    onChange={this.changeHandler}
-                    valid={this.state.form.metascore > 0}
-                    invalid={this.state.form.metascore < 0}
-                  />
-                  <FormFeedback>Invalid metascore</FormFeedback>
-                </Col>
-              </FormGroup>
-              <FormGroup row>
-                <Col sm={10}>
-                  <Input
-                    type="text"
-                    name="director"
-                    id="director"
-                    placeholder="Movie director"
-                    value={this.state.form.director}
-                    onChange={this.changeHandler}
-                  />
-                </Col>
-              </FormGroup>
-              {this.state.form.stars.map((star, index) => (
-                <FormGroup key={index} row>
-                  <Col sm={10}>
-                    <Input
-                      type="text"
-                      name="stars"
-                      index={index}
-                      className="stars"
-                      id={`star-${index}`}
-                      placeholder="Star name"
-                      value={star}
-                      onChange={this.changeHandler}
-                    />
-                  </Col>
-                </FormGroup>
-              ))}
-              <FormGroup row>
-                <Col>
-                   <Button color="warning" onClick={this.addStar} >Add Star</Button><br />
-                </Col>
-              </FormGroup>
-              <FormGroup row>
-                <Col>
-                  <Button color="info" className="btn-add-friend">
-                    {this.state.isEditing ? 'Update Movie' : 'Submit'}
-                  </Button>
-                </Col>
-              </FormGroup>
-            </Form>
-          // </Col>
-        // </Row>
-      // </Container>
+      <div className="movie-card">
+        <Form className="movie-form" onSubmit={this.handleSubmit}>
+          <FormGroup row>
+            <Col sm={7}>
+              <Input
+                type="text"
+                name="title"
+                id="title"
+                placeholder="Movie title"
+                value={this.state.form.title}
+                onChange={this.changeHandler}
+                valid={this.state.form.title.length > 1}
+                invalid={this.state.form.title !== '' && this.state.form.title.length <= 1}
+              />
+            </Col>
+            <Col sm={3}>
+              <Input
+                type="number"
+                name="metascore"
+                id="metascore"
+                placeholder="metascore"
+                value={this.state.form.metascore}
+                onChange={this.changeHandler}
+                valid={this.state.form.metascore > 0}
+                invalid={this.state.form.metascore < 0}
+              />
+              <FormFeedback>Invalid metascore</FormFeedback>
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Col sm={10}>
+              <Input
+                type="text"
+                name="director"
+                id="director"
+                placeholder="Movie director"
+                value={this.state.form.director}
+                onChange={this.changeHandler}
+              />
+            </Col>
+          </FormGroup>
+          {this.state.form.stars.map((star, index) => (
+            <FormGroup key={index} row>
+              <Col sm={10}>
+                <Input
+                  type="text"
+                  name="stars"
+                  index={index}
+                  className="stars"
+                  id={`star-${index}`}
+                  placeholder="Star name"
+                  value={star}
+                  onChange={this.changeHandler}
+                />
+              </Col>
+            </FormGroup>
+          ))}
+          <FormGroup row>
+            <Col>
+                <Button color="warning" onClick={this.addStar} >Add Star</Button><br />
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Col>
+              <Button color="info" className="btn-add-friend">
+                {this.state.isEditing ? 'Update Movie' : 'Submit'}
+              </Button>
+            </Col>
+          </FormGroup>
+        </Form>
+      </div>
     );
   }
 }

@@ -43,7 +43,9 @@ export default class MovieList extends Component {
               movie={movie}
               deleteMovie={this.deleteMovie}
               addToSavedList={this.props.addToSavedList}
+              removeFromSavedList={this.props.removeFromSavedList}
               toggleDeleteModal={this.toggleDeleteModal}
+              savedList={this.props.savedList}
             />
           </div>
         ))}
